@@ -1,7 +1,8 @@
 exports.handler = function (req, res) {
 	console.log('Start');
 	console.log('Incoming request:\n');
-	console.log(req.body);
+	console.log(req.query);
+	console.log(req.params);
 	// console.log('Body:\n' + req.body);
 	// Facebook Webhook setup
 	if (req.method === 'GET') {
