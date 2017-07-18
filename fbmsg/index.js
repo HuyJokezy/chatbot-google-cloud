@@ -1,4 +1,5 @@
 exports.handler = function (req, res) {
+	console.log(req.headers);
 	// Facebook Webhook setup
 	if (req.method === 'GET') {
 		if (req.query['hub.mode'] === 'subscribe' && req.query['hub.verify_token'] === 'iambobbeepboop') {
@@ -9,7 +10,7 @@ exports.handler = function (req, res) {
 	// Facebook Message receiver
 	} else if (req.method === 'POST') {
 		if (req.body.entry[0].messaging[0].message.is_echo !== true) {
-			console.log('Normal Message: ' + req.body.entry[0].messaging[0].message.text)
+			console.log('Normal Message: ' + req.body.entry[0].messaging[0].message.text);
 			var request = require('request');
 			var options = {
 				uri: 'https://api.api.ai/v1/query?v=20150910',
@@ -63,4 +64,8 @@ exports.handler = function (req, res) {
 		res.set('Allow', 'GET, POST, HEAD');
 		res.status(405).json({});
 	}
+};
+
+var respond = function () {
+
 };
