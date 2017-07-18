@@ -31,7 +31,7 @@ exports.handler = function (req, res) {
 			};
 			var callbackApiai = function (error, response, body) {
 				var request = require('request');
-				var token = 'EAAB3JUNaWzgBAP5tksSuhv3Rhs2AsrSUCvJqbqUXVka1ZAgvZCCNMqSH71M8ExoW4Eel4ZCYaUcFNquEhmN7IGKyNWjOZAkWa7bek3PiAnNIDTlvIbZBsGAG93QnpZBI7ttcDimd6LZCIRuZCdj6NohEYlYuAucL3L9qLEx69X9taAZDZD';
+				var token = 'EAAB3JUNaWzgBAJkbBLaCrGgVDoLUfHChBkf0qi8yE9Bg0azTRmMzcpbe2yojIPThR1BxT9HMwcwBlSl2ZBXDGJUS9mFFGedTxGRYKxq9n6ZCj9XqoGDvkr9sVrh3D6tqcjOMBhZC9y8Yxeaix3QTNTZA2r2hATWl8TJ0LCPpBgZDZD';
 				var options = {
 					uri: 'https://graph.facebook.com/v2.6/me/messages?access_token=' + token,
 					method: 'POST',
@@ -53,6 +53,5 @@ exports.handler = function (req, res) {
 				});
 			};
 			request(options, callbackApiai);
-			res.status(200).json({});
 	}
 };
