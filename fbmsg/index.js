@@ -1,6 +1,5 @@
 'use strict';
-exports.handler = function (req, res) {
-
+exports.handler = function handler(req, res) {
 	// Facebook Webhook setup
 	if (req.method === 'GET') {
 		console.log('Incoming request:\n' + JSON.stringify(req));
