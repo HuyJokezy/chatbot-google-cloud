@@ -8,7 +8,7 @@ exports.handler = function handler(req, res) {
 		if (req.query['hub.mode'] === 'subcribe' && req.query['hub.verify_token'] === 'iambobbeepboop') {
 			res.status(200).send(req.query['hub.challenge']);
 		} else {
-			res.status(404).send('Invalid Request');
+			res.status(404).send('Request Problem');
 		}
 	// Facebook Message receiver
 	} else if (req.method === 'POST') {
