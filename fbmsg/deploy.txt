@@ -1,1 +1,0 @@
-gcloud beta functions deploy fbmsg --source-url https://source.developers.google.com/p/chatbot-prototype-173503/r/chatbot-google-cloud --source-path "/fbmsg" --trigger-http --source-branch master --entry-point handler
