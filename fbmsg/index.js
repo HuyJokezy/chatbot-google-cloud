@@ -10,6 +10,7 @@ exports.handler = function (req, res) {
 		}
 	// Facebook Message receiver
 	} else if (req.method === 'POST') {
+		if (req.body.entry[0].messaging[0].message.is_echo !== true) {
 			var request = require('request');
 			var options = {
 				uri: 'https://api.api.ai/v1/query?v=20150910',
@@ -53,8 +54,11 @@ exports.handler = function (req, res) {
 				});
 			};
 			request(options, callbackApiai);
+		} else {
+			res.status(200).json({});
+		}
 	} else if (req.method === 'HEAD') {
-		res.status(200).json({});
+		res.status(200);
 	} else {
 		res.set('Allow', 'GET, POST, HEAD');
 		res.status(405).json({});
