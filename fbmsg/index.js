@@ -32,7 +32,7 @@ exports.handler = function (req, res) {
 			var callbackApiai = function (error, response, body) {
 				var request = require('request');
 				var options = {
-					uri: 'https://graph.facebook.com/v2.6/me/messages?access_token=EAAB3JUNaWzgBAK9X0ZBWT5QALfGKqG81pLJ0i5oPIhY3FNPkuwbYXJZBXcYKGo3Tip8bcdFi6qoathpykieZCQcRmXljOrEWaA4iy7bHXiS8gl2gqXxOpq7ZCm3rbIFXUVLYdvVzEXgRZAwPB85M4TbF6j3xHZC5oWxYe24EqKxAZDZD';
+					uri: 'https://graph.facebook.com/v2.6/me/messages?access_token=EAAB3JUNaWzgBAK9X0ZBWT5QALfGKqG81pLJ0i5oPIhY3FNPkuwbYXJZBXcYKGo3Tip8bcdFi6qoathpykieZCQcRmXljOrEWaA4iy7bHXiS8gl2gqXxOpq7ZCm3rbIFXUVLYdvVzEXgRZAwPB85M4TbF6j3xHZC5oWxYe24EqKxAZDZD',
 					method: 'POST',
 					json: true,
 					headers: {
