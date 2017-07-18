@@ -53,5 +53,9 @@ exports.handler = function (req, res) {
 				});
 			};
 			request(options, callbackApiai);
+	} else if (req.method === 'HEAD') {
+		res.status(200).json({});
+	} else {
+		res.set('Allow', 'GET, POST, HEAD').status(405).send();
 	}
 };
