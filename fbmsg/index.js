@@ -1,5 +1,4 @@
-'use strict';
-exports.handler = function handler(req, res) {
+exports.handler = function (req, res) {
 	console.log('Start');
 	console.log('Incoming request:\n' + JSON.stringify(req));
 	console.log('Body:\n' + JSON.stringify(req.body));
