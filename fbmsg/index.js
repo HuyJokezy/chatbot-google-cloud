@@ -1,4 +1,5 @@
 exports.handler = function (req, res) {
+	console.log(req.headers['x-hub-signature']);
 	if (req.headers['x-hub-signature'] !== 'sha1=fe4196c7ee2bde02f5a8a9263a6007d6c10bf761') {
 		res.status(403).send('Invalid authentication credentials');
 	} else {
