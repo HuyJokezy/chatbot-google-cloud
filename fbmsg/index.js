@@ -31,8 +31,9 @@ exports.handler = function (req, res) {
 			};
 			var callbackApiai = function (error, response, body) {
 				var request = require('request');
+				var token = 'EAAB3JUNaWzgBAP5tksSuhv3Rhs2AsrSUCvJqbqUXVka1ZAgvZCCNMqSH71M8ExoW4Eel4ZCYaUcFNquEhmN7IGKyNWjOZAkWa7bek3PiAnNIDTlvIbZBsGAG93QnpZBI7ttcDimd6LZCIRuZCdj6NohEYlYuAucL3L9qLEx69X9taAZDZD';
 				var options = {
-					uri: 'https://graph.facebook.com/v2.6/me/messages?access_token=EAAB3JUNaWzgBAK9X0ZBWT5QALfGKqG81pLJ0i5oPIhY3FNPkuwbYXJZBXcYKGo3Tip8bcdFi6qoathpykieZCQcRmXljOrEWaA4iy7bHXiS8gl2gqXxOpq7ZCm3rbIFXUVLYdvVzEXgRZAwPB85M4TbF6j3xHZC5oWxYe24EqKxAZDZD',
+					uri: 'https://graph.facebook.com/v2.6/me/messages?access_token=' + token,
 					method: 'POST',
 					json: true,
 					headers: {
