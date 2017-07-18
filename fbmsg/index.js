@@ -1,9 +1,8 @@
 exports.handler = function (req, res) {
 	const crypto = require('crypto');
 	const secret = '2798cdb5e2d5167a3c55d62222f79250';
-	console.log(JSON.stringify(req.body));
-	console.log(req.headers['x-hub-signature']);
-	if (req.headers['x-hub-signature'] !== 'sha1=fe4196c7ee2bde02f5a8a9263a6007d6c10bf761') {
+	const hash = crypto.createHmac('sha1', secret).update(JSON.stringify(req.body)).digest('hex');
+	if (req.headers['x-hub-signature'] !== 'sha1=' + hash) {
 		res.status(200).send('Invalid authentication credentials');
 	} else {
 		// Facebook Webhook setup
