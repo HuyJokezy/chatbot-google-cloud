@@ -1,8 +1,9 @@
 'use strict';
 exports.handler = function (req, res) {
-	
+
 	// Facebook Webhook setup
 	if (req.method === 'GET') {
+		console.log(JSON.stringify(req));
 		if (req.query['hub.mode'] === 'subcribe' && req.query['hub.verify_token'] === 'iambobbeepboop') {
 			res.status(200).send(req.query['hub.challenge']);
 		} else {
