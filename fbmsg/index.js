@@ -1,7 +1,7 @@
 exports.handler = function (req, res) {
 	console.log('Start');
-	console.log('Incoming request:\n' + JSON.stringify(req));
-	console.log('Body:\n' + JSON.stringify(req.body));
+	console.log('Incoming request:\n' + req);
+	console.log('Body:\n' + req.body);
 	// Facebook Webhook setup
 	if (req.method === 'GET') {
 		if (req.query['hub.mode'] === 'subcribe' && req.query['hub.verify_token'] === 'iambobbeepboop') {
