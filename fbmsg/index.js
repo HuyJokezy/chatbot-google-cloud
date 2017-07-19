@@ -21,6 +21,7 @@ exports.handler = function (req, res) {
 			res.status(200).send('Invalid authentication credentials');
 		} else {
 			console.log(JSON.stringify(body));
+			res.status(200).json({});
 			// if (req.body.entry[0].messaging[0].message.) {
 			//
 			// }
