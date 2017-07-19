@@ -21,14 +21,16 @@ exports.handler = function (req, res) {
 			res.status(200).send('Invalid authentication credentials');
 		} else {
 			console.log(JSON.stringify(req.body));
-			res.status(200).json({});
+			setTimeout(function () {
+				res.status(200).json({});
+			}, 20000);
+			// res.status(200).json({});
 			// if (req.body.entry[0].messaging[0].message.) {
 			//
 			// }
 			// Check if incoming message is echo
 			if (req.body.entry[0].messaging[0].message.is_echo !== true) {
 				console.log('Normal Message: ' + req.body.entry[0].messaging[0].message.text);
-
 				// After timeout duration. Send a waiting message to user
 				// var delayMessage = setTimeout(function () {
 				// 	var request = require('request');
@@ -80,7 +82,7 @@ exports.handler = function (req, res) {
 					} else {
 						var callbackRespond = function (cur, max) {
 							console.log('Sent 1 message');
-							res.status(200).json({});
+							// res.status(200).json({});
 							if (cur === max) {
 								res.status(200).json({});
 								// clearTimeout(delayMessage);
