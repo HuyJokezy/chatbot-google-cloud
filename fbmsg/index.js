@@ -6,7 +6,7 @@ exports.handler = function (req, res) {
 	console.log(JSON.stringify(req.body));
 	console.log(hash);
 	console.log(req.headers['x-hub-signature']);
-	if (req.headers['x-hub-signature'] !== 'sha1=' + hash) {
+	if (req.headers['x-hub-signature'] === 'sha1=' + hash) {
 		console.log('Invalid authentication credentials');
 		res.status(200).send('Invalid authentication credentials');
 	} else {
@@ -79,7 +79,15 @@ exports.handler = function (req, res) {
 
 function unicodeEscape (str) {
   return str.replace(/[\s\S]/g, function (escape) {
-    if (escape.charCodeAt() >= 32 && escape.charCodeAt() <= 127) {
+		if (escape === '\\') {
+			return '\\/';
+		} else if (escape === '<') {
+			return '\\u003c';
+		} else if (escape === '%') {
+			return '\\u0025';
+		} else if (escape === '@') {
+			return '\\u0040';
+		} else if (escape.charCodeAt() >= 32 && escape.charCodeAt() <= 127) {
       return escape;
     } else {
       return '\\u' + ('0000' + (escape.charCodeAt()).toString(16).toLowerCase()).slice(-4);
