@@ -44,7 +44,7 @@ exports.handler = function (req, res) {
 					request(options, function () {
 						res.status(200).json({});
 					});
-				}, 1000);
+				}, 5000);
 				var request = require('request');
 				var options = {
 					uri: 'https://api.api.ai/v1/query?v=20150910',
