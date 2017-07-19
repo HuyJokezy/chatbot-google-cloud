@@ -147,7 +147,7 @@ function respond (messageFromApiAi, recipientId, callbackRespond) {
 			};
 			for (let i = 0; i < messageFromApiAi.buttons.length; i++) {
 				let tmp = (messageFromApiAi.buttons[i].postback.substr(0,3) === 'http') ? {'url': messageFromApiAi.buttons[i].postback} : {'payload': messageFromApiAi.buttons[i].postback};
-				messageToFb.atttachment.payload.elements[0].buttons.push({
+				messageToFb.attachment.payload.elements[0].buttons.push({
 					'content_type': (messageFromApiAi.buttons[i].postback.substr(0,3) === 'http') ? 'web_url' : 'postback',
 					'title': messageFromApiAi.buttons[i].text,
 					tmp
