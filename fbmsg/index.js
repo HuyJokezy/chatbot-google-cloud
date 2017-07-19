@@ -154,7 +154,7 @@ function respond (messageFromApiAi, recipientId, callbackRespond) {
 					tmp
 				});
 			}
-			break;
+			break; 
 		// Quick replies
 		case 2:
 			messageToFb = {
