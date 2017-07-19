@@ -129,7 +129,7 @@ function respond (messageFromApiAi, recipientId, callbackRespond) {
 		// Card
 		case 1:
 			messageToFb = {
-				'atttachment': {
+				'attachment': {
 					'type': 'template',
 					'payload': {
 						'template_type': 'generic',
@@ -171,7 +171,7 @@ function respond (messageFromApiAi, recipientId, callbackRespond) {
 		// Image
 		case 3:
 			messageToFb = {
-				'atttachment': {
+				'attachment': {
 					'type': 'image',
 					'payload': {
 						'url': messageFromApiAi.imageUrl
