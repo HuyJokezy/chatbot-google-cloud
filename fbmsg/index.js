@@ -4,6 +4,7 @@ exports.handler = function (req, res) {
 	const input = unicodeEscape(JSON.stringify(req.body));
 	const hash = crypto.createHmac('sha1', secret).update(input).digest('hex');
 	console.log(JSON.stringify(req.body));
+	console.log(hash);
 	console.log(req.headers['x-hub-signature']);
 	if (req.headers['x-hub-signature'] !== 'sha1=' + hash) {
 		res.status(200).send('Invalid authentication credentials');
