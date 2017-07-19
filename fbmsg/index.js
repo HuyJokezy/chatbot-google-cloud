@@ -81,14 +81,14 @@ exports.handler = function (req, res) {
 						res.status(200).json({});
 					} else {
 						var callbackRespond = function (cur, max) {
-							console.log('Sent 1 message');
+							console.log('Sent 1 message' + ' ' + cur + ' and ' + max);
 							// res.status(200).json({});
 							if (cur === max) {
 								res.status(200).json({});
 								// clearTimeout(delayMessage);
 							}
 						};
-						for (let i = 0; i < body.result.fulfillment.messages.length; i++) {
+						for (var i = 0; i < body.result.fulfillment.messages.length; i++) {
 							if (body.result.fulfillment.messages[i].platform === 'facebook')
 							respond(body.result.fulfillment.messages[i], req.body.entry[0].messaging[0].sender.id, callbackRespond(i, body.result.fulfillment.messages.length - 1));
 						}
