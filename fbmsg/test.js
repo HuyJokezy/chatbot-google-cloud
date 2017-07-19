@@ -1,7 +1,23 @@
+var test = function unicodeEscape(str) {
+  return str.replace(/[\s\S]/g, function (escape) {
+    if (escape.charCodeAt() >= 32 && escape.charCodeAt() <= 127) {
+      return escape;
+    } else {
+      return '\\u' + ('0000' + (escape.charCodeAt()).toString(16).toLowerCase()).slice(-4);
+    }
+  });
+}
 const crypto = require('crypto');
-const key = '2798cdb5e2d5167a3c55d62222f79250';
-const res = '7ce3c21bc39c4fae8c13c745b33cf9490fdd9e11';
-const text = '{"object":"page","entry":[{"id":"1731976853769791","time":1500372065142,"messaging":[{"sender":{"id":"1427297504030226"},"recipient":{"id":"1731976853769791"},"timestamp":1500372065025,"message":{"mid":"mid.$cAAZ9yi_MppVjhmojAVdVSSK8t9W2","seq":542844,"text":"xin chào"}}]}]}';
+var key = '2798cdb5e2d5167a3c55d62222f79250';
+var res = '35bd72f9abf2279830c24d3a283354452f1bc837';
+var text = '{"object":"page","entry":[{"id":"1731976853769791","time":1500373757081,"messaging":[{"sender":{"id":"1427297504030226"},"recipient":{"id":"1731976853769791"},"timestamp":1500373756791,"message":{"mid":"mid.$cAAZ9yi_MppVjhoPzd1dVT5bZW8F9","seq":542882,"text":"xin chào"}}]}]}';
+var text1 = '{"object":"page","entry":[{"id":"1731976853769791","time":1500373757081,"messaging":[{"sender":{"id":"1427297504030226"},"recipient":{"id":"1731976853769791"},"timestamp":1500373756791,"message":{"mid":"mid.$cAAZ9yi_MppVjhoPzd1dVT5bZW8F9","seq":542882,"text":"xin ch\\u00e0o"}}]}]}';
+text1 = test(text);
 const hash = crypto.createHmac('sha1', key).update(text).digest('hex');
-console.log(hash);
+const hash1 = crypto.createHmac('sha1', key).update(text1).digest('hex');
 console.log(res);
+console.log(hash);
+console.log(hash1);
+// console.log(res);
+console.log(test('xin chào'));
+// console.log(text === 'à');
