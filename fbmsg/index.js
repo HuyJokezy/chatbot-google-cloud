@@ -81,7 +81,7 @@ exports.handler = function (req, res) {
 function unicodeEscape (str) {
   return str.replace(/[\s\S]/g, function (escape) {
 		if (escape === '\\') {
-			return '\/';
+			return '\\';
 		} else if (escape === '<') {
 			return '\\u003C';
 		} else if (escape === '%') {
