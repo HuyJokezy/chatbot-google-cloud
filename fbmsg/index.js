@@ -75,6 +75,7 @@ exports.handler = function (req, res) {
 					} else {
 						var callbackRespond = function (cur, max) {
 							console.log('Sent 1 message');
+							res.status(200).json({});
 							if (cur === max) {
 								res.status(200).json({});
 								// clearTimeout(delayMessage);
