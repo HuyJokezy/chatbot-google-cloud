@@ -22,36 +22,33 @@ exports.handler = function (req, res) {
 		} else {
 			// console.log(JSON.stringify(req.body));
 			// res.status(200).json({});
-			setTimeout(function () {
-				res.status(200).json({});
-			}, 20000);
 			// Check if incoming message is echo
 			if (req.body.entry[0].messaging[0].message.is_echo !== true) {
 				console.log('Normal Message: ' + req.body.entry[0].messaging[0].message.text);
 				// After timeout duration. Send a waiting message to user
-				// var delayMessage = setTimeout(function () {
-				// 	var request = require('request');
-				// 	var token = 'EAAB3JUNaWzgBAJkbBLaCrGgVDoLUfHChBkf0qi8yE9Bg0azTRmMzcpbe2yojIPThR1BxT9HMwcwBlSl2ZBXDGJUS9mFFGedTxGRYKxq9n6ZCj9XqoGDvkr9sVrh3D6tqcjOMBhZC9y8Yxeaix3QTNTZA2r2hATWl8TJ0LCPpBgZDZD';
-				// 	var options = {
-				// 		uri: 'https://graph.facebook.com/v2.6/me/messages?access_token=' + token,
-				// 		method: 'POST',
-				// 		json: true,
-				// 		headers: {
-				// 			'Content-Type': 'application/json'
-				// 		},
-				// 		body: {
-				// 			'recipient': {
-				// 				'id': req.body.entry[0].messaging[0].sender.id
-				// 			},
-				// 			'message': {
-				// 				'text': 'Xin chờ trong giây lát'
-				// 			}
-				// 		}
-				// 	};
-				// 	request(options, function () {
-				// 		res.status(200).json({});
-				// 	});
-				// }, 5000);
+				var delayMessage = setTimeout(function () {
+					var request = require('request');
+					var token = 'EAAB3JUNaWzgBAJkbBLaCrGgVDoLUfHChBkf0qi8yE9Bg0azTRmMzcpbe2yojIPThR1BxT9HMwcwBlSl2ZBXDGJUS9mFFGedTxGRYKxq9n6ZCj9XqoGDvkr9sVrh3D6tqcjOMBhZC9y8Yxeaix3QTNTZA2r2hATWl8TJ0LCPpBgZDZD';
+					var options = {
+						uri: 'https://graph.facebook.com/v2.6/me/messages?access_token=' + token,
+						method: 'POST',
+						json: true,
+						headers: {
+							'Content-Type': 'application/json'
+						},
+						body: {
+							'recipient': {
+								'id': req.body.entry[0].messaging[0].sender.id
+							},
+							'message': {
+								'text': 'Xin chờ trong giây lát'
+							}
+						}
+					};
+					request(options, function () {
+						res.status(200).json({});
+					});
+				}, 8000);
 
 				// Make a request to API.AI
 				var request = require('request');
@@ -78,10 +75,9 @@ exports.handler = function (req, res) {
 						res.status(200).json({});
 					} else {
 						var callbackRespond = function (cur, max) {
-							console.log('Sent 1 message' + ' ' + cur + ' and ' + max);
 							if (cur === max) {
+								clearTimeout(delayMessage);
 								res.status(200).json({});
-								// clearTimeout(delayMessage);
 							}
 						};
 						var cur = 0, max = 0;
