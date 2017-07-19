@@ -1,24 +1,25 @@
 exports.handler = function (req, res) {
+	// Calculate SHA-1 Hash
 	const crypto = require('crypto');
 	const secret = '2798cdb5e2d5167a3c55d62222f79250';
 	const input = unicodeEscape(JSON.stringify(req.body));
 	const hash = crypto.createHmac('sha1', secret).update(input).digest('hex');
-	console.log(JSON.stringify(req.body));
-	console.log(hash);
-	console.log(req.headers['x-hub-signature']);
-	if (req.headers['x-hub-signature'] === 'sha1=' + hash) {
-		console.log('Invalid authentication credentials');
-		res.status(200).send('Invalid authentication credentials');
-	} else {
-		// Facebook Webhook setup
-		if (req.method === 'GET') {
-			if (req.query['hub.mode'] === 'subscribe' && req.query['hub.verify_token'] === 'iambobbeepboop') {
-				res.status(200).send(req.query['hub.challenge']);
-			} else {
-				res.status(403).send('Invalid Request');
-			}
-		// Facebook Message receiver
-		} else if (req.method === 'POST') {
+	// Facebook Webhook setup
+	if (req.method === 'GET') {
+		if (req.query['hub.mode'] === 'subscribe' && req.query['hub.verify_token'] === 'iambobbeepboop') {
+			res.status(200).send(req.query['hub.challenge']);
+		} else {
+			res.status(403).send('Invalid Request');
+		}
+	// Facebook Message receiver
+	} else if (req.method === 'POST') {
+		// Validate request
+		if (req.headers['x-hub-signature'] !== 'sha1=' + hash) {
+			console.log('Invalid authentication credentials');
+			console.log(hash);
+			console.log(req.headers['x-hub-signature']);
+			res.status(200).send('Invalid authentication credentials');
+		} else {
 			if (req.body.entry[0].messaging[0].message.is_echo !== true) {
 				console.log('Normal Message: ' + req.body.entry[0].messaging[0].message.text);
 				var request = require('request');
@@ -68,12 +69,12 @@ exports.handler = function (req, res) {
 				console.log('Echo Message');
 				res.status(200).json({});
 			}
-		} else if (req.method === 'HEAD') {
-			res.status(200);
-		} else {
-			res.set('Allow', 'GET, POST, HEAD');
-			res.status(405).json({});
 		}
+	} else if (req.method === 'HEAD') {
+		res.status(200);
+	} else {
+		res.set('Allow', 'GET, POST, HEAD');
+		res.status(405).json({});
 	}
 };
 
