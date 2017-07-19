@@ -20,14 +20,10 @@ exports.handler = function (req, res) {
 			console.log(req.headers['x-hub-signature']);
 			res.status(200).send('Invalid authentication credentials');
 		} else {
-			console.log(JSON.stringify(req.body));
+			// console.log(JSON.stringify(req.body));
 			setTimeout(function () {
 				res.status(200).json({});
 			}, 20000);
-			// res.status(200).json({});
-			// if (req.body.entry[0].messaging[0].message.) {
-			//
-			// }
 			// Check if incoming message is echo
 			if (req.body.entry[0].messaging[0].message.is_echo !== true) {
 				console.log('Normal Message: ' + req.body.entry[0].messaging[0].message.text);
@@ -82,15 +78,22 @@ exports.handler = function (req, res) {
 					} else {
 						var callbackRespond = function (cur, max) {
 							console.log('Sent 1 message' + ' ' + cur + ' and ' + max);
-							// res.status(200).json({});
 							if (cur === max) {
 								res.status(200).json({});
 								// clearTimeout(delayMessage);
 							}
 						};
-						for (var i = 0; i < body.result.fulfillment.messages.length; i++) {
-							if (body.result.fulfillment.messages[i].platform === 'facebook')
-							respond(body.result.fulfillment.messages[i], req.body.entry[0].messaging[0].sender.id, callbackRespond(i, body.result.fulfillment.messages.length - 1));
+						var cur = 0, max = 0;
+						for (let i = 0; i < body.result.fulfillment.messages.length; i++) {
+							if (body.result.fulfillment.messages[i].platform === 'facebook') {
+								max = max + 1;
+							}
+						}
+						for (let i = 0; i < body.result.fulfillment.messages.length; i++) {
+							if (body.result.fulfillment.messages[i].platform === 'facebook') {
+								cur = cur + 1;
+								respond(body.result.fulfillment.messages[i], req.body.entry[0].messaging[0].sender.id, callbackRespond(cur, max));
+							}
 						}
 					}
 				};
