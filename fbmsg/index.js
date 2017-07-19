@@ -23,30 +23,32 @@ exports.handler = function (req, res) {
 			// Check if incoming message is echo
 			if (req.body.entry[0].messaging[0].message.is_echo !== true) {
 				console.log('Normal Message: ' + req.body.entry[0].messaging[0].message.text);
+
 				// After timeout duration. Send a waiting message to user
-				var delayMessage = setTimeout(function () {
-					var request = require('request');
-					var token = 'EAAB3JUNaWzgBAJkbBLaCrGgVDoLUfHChBkf0qi8yE9Bg0azTRmMzcpbe2yojIPThR1BxT9HMwcwBlSl2ZBXDGJUS9mFFGedTxGRYKxq9n6ZCj9XqoGDvkr9sVrh3D6tqcjOMBhZC9y8Yxeaix3QTNTZA2r2hATWl8TJ0LCPpBgZDZD';
-					var options = {
-						uri: 'https://graph.facebook.com/v2.6/me/messages?access_token=' + token,
-						method: 'POST',
-						json: true,
-						headers: {
-							'Content-Type': 'application/json'
-						},
-						body: {
-							'recipient': {
-								'id': req.body.entry[0].messaging[0].sender.id
-							},
-							'message': {
-								'text': 'Xin chờ trong giây lát'
-							}
-						}
-					};
-					request(options, function () {
-						res.status(200).json({});
-					});
-				}, 5000);
+				// var delayMessage = setTimeout(function () {
+				// 	var request = require('request');
+				// 	var token = 'EAAB3JUNaWzgBAJkbBLaCrGgVDoLUfHChBkf0qi8yE9Bg0azTRmMzcpbe2yojIPThR1BxT9HMwcwBlSl2ZBXDGJUS9mFFGedTxGRYKxq9n6ZCj9XqoGDvkr9sVrh3D6tqcjOMBhZC9y8Yxeaix3QTNTZA2r2hATWl8TJ0LCPpBgZDZD';
+				// 	var options = {
+				// 		uri: 'https://graph.facebook.com/v2.6/me/messages?access_token=' + token,
+				// 		method: 'POST',
+				// 		json: true,
+				// 		headers: {
+				// 			'Content-Type': 'application/json'
+				// 		},
+				// 		body: {
+				// 			'recipient': {
+				// 				'id': req.body.entry[0].messaging[0].sender.id
+				// 			},
+				// 			'message': {
+				// 				'text': 'Xin chờ trong giây lát'
+				// 			}
+				// 		}
+				// 	};
+				// 	request(options, function () {
+				// 		res.status(200).json({});
+				// 	});
+				// }, 5000);
+
 				// Make a request to API.AI
 				var request = require('request');
 				var options = {
@@ -76,7 +78,7 @@ exports.handler = function (req, res) {
 							respond(body.result.fulfillment.messages[i], req.body.entry[0].messaging[0].sender.id, function () {
 								if (i === body.result.fulfillment.messages.length - 1) {
 									res.status(200).json({});
-									clearTimeout(delayMessage);
+									// clearTimeout(delayMessage);
 								}
 							});
 						}
