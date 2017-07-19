@@ -73,15 +73,16 @@ exports.handler = function (req, res) {
 					if (body.result.metadata.webhookUsed === 'true' || body.result.metadata.webhookForSlotFillingUsed === 'true') {
 						res.status(200).json({});
 					} else {
+						var callbackRespond = function (cur, max) {
+							console.log('Sent 1 message');
+							if (cur === max) {
+								res.status(200).json({});
+								// clearTimeout(delayMessage);
+							}
+						};
 						for (let i = 0; i < body.result.fulfillment.messages.length; i++) {
 							if (body.result.fulfillment.messages[i].platform === 'facebook')
-							respond(body.result.fulfillment.messages[i], req.body.entry[0].messaging[0].sender.id, function () {
-								console.log('Sent 1 message');
-								if (i === body.result.fulfillment.messages.length - 1) {
-									res.status(200).json({});
-									// clearTimeout(delayMessage);
-								}
-							});
+							respond(body.result.fulfillment.messages[i], req.body.entry[0].messaging[0].sender.id, callbackRespond(i, body.result.fulfillment.messages.length - 1));
 						}
 					}
 				};
@@ -154,7 +155,7 @@ function respond (messageFromApiAi, recipientId, callbackRespond) {
 					tmp
 				});
 			}
-			break; 
+			break;
 		// Quick replies
 		case 2:
 			messageToFb = {
