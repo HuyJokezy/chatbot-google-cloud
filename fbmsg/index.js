@@ -68,17 +68,18 @@ exports.handler = function (req, res) {
 					}
 				};
 				var callbackApiai = function (error, response, body) {
-					var callbackRespond = function () {
-						clearTimeout(delayMessage);
-					};
 					if (body.result.metadata.webhookUsed === 'true' || body.result.metadata.webhookForSlotFillingUsed === 'true') {
 						res.status(200).json({});
 					} else {
 						for (let i = 0; i < body.result.fulfillment.messages.length; i++) {
 							if (body.result.fulfillment.messages[i].platform === 'facebook')
-							respond(body.result.fulfillment.messages[i], req.body.entry[0].messaging[0].sender.id, callbackRespond);
+							respond(body.result.fulfillment.messages[i], req.body.entry[0].messaging[0].sender.id, function () {
+								if (i === body.result.fulfillment.messages.length - 1) {
+									res.status(200).json({});
+									clearTimeout(delayMessage);
+								}
+							});
 						}
-						res.status(200).json({});
 					}
 				};
 				request(options, callbackApiai);
