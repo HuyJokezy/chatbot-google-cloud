@@ -7,6 +7,7 @@ exports.handler = function (req, res) {
 	console.log(hash);
 	console.log(req.headers['x-hub-signature']);
 	if (req.headers['x-hub-signature'] !== 'sha1=' + hash) {
+		console.log('Invalid authentication credentials');
 		res.status(200).send('Invalid authentication credentials');
 	} else {
 		// Facebook Webhook setup
