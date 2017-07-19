@@ -83,7 +83,7 @@ function unicodeEscape (str) {
 		if (escape === '\\') {
 			return '\\/';
 		} else if (escape === '<') {
-			return '\\u003c';
+			return '\\u003C';
 		} else if (escape === '%') {
 			return '\\u0025';
 		} else if (escape === '@') {
