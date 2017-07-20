@@ -161,19 +161,19 @@ function respond (messageFromApiAi, recipientId, callbackRespond) {
 				}
 			};
 			for (let i = 0; i < messageFromApiAi.buttons.length; i++) {
-				var tmp, type;
 				if (messageFromApiAi.buttons[i].postback.substr(0,4) === 'http') {
-					type = 'web_url';
-					tmp = {url: messageFromApiAi.buttons[i].postback};
+					messageToFb.attachment.payload.elements[0].buttons.push({
+						'type': 'web_url',
+						'title': messageFromApiAi.buttons[i].text,
+						'url': messageFromApiAi.buttons[i].postback
+					});
 				} else {
-					type = 'postback';
-					tmp = {payload: messageFromApiAi.buttons[i].postback};
+					messageToFb.attachment.payload.elements[0].buttons.push({
+						'type': 'postback',
+						'title': messageFromApiAi.buttons[i].text,
+						'payload': messageFromApiAi.buttons[i].postback
+					});
 				}
-				messageToFb.attachment.payload.elements[0].buttons.push({
-					'type': type,
-					'title': messageFromApiAi.buttons[i].text,
-					tmp
-				});
 			}
 			console.log(JSON.stringify(messageToFb));
 			break;
