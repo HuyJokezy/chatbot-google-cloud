@@ -21,7 +21,7 @@ exports.handler = function (req, res) {
 			res.status(200).send('Invalid authentication credentials');
 		} else {
 			// console.log(JSON.stringify(req.body));
-			res.status(200).json({});
+			// res.status(200).json({});
 			// Check if incoming message is echo
 			if (req.body.entry[0].messaging[0].message.is_echo !== true) {
 				console.log('Normal Message: ' + req.body.entry[0].messaging[0].message.text);
@@ -148,6 +148,10 @@ function respond (messageFromApiAi, recipientId, callbackRespond) {
 								'title': messageFromApiAi.title,
 								'subtitle': messageFromApiAi.subtitle,
 								'image_url': messageFromApiAi.imageUrl,
+								'default_action': {
+									'type': 'web_url',
+									'url': messageFromApiAi.imageUrl
+								},
 								'buttons': [
 								]
 							}
@@ -156,9 +160,9 @@ function respond (messageFromApiAi, recipientId, callbackRespond) {
 				}
 			};
 			for (let i = 0; i < messageFromApiAi.buttons.length; i++) {
-				let tmp = (messageFromApiAi.buttons[i].postback.substr(0,3) === 'http') ? {'url': messageFromApiAi.buttons[i].postback} : {'payload': messageFromApiAi.buttons[i].postback};
+				var tmp = (messageFromApiAi.buttons[i].postback.substr(0,3) === 'http') ? {'url': messageFromApiAi.buttons[i].postback} : {'payload': messageFromApiAi.buttons[i].postback};
 				messageToFb.attachment.payload.elements[0].buttons.push({
-					'content_type': (messageFromApiAi.buttons[i].postback.substr(0,3) === 'http') ? 'web_url' : 'postback',
+					'type': (messageFromApiAi.buttons[i].postback.substr(0,3) === 'http') ? 'web_url' : 'postback',
 					'title': messageFromApiAi.buttons[i].text,
 					tmp
 				});
