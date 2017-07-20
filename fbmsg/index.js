@@ -161,7 +161,7 @@ function respond (messageFromApiAi, recipientId, callbackRespond) {
 				}
 			};
 			for (let i = 0; i < messageFromApiAi.buttons.length; i++) {
-				var tmp = (messageFromApiAi.buttons[i].postback.substr(0,4) === 'http') ? {'url': messageFromApiAi.buttons[i].postback} : {'payload': messageFromApiAi.buttons[i].postback};
+				var tmp = (messageFromApiAi.buttons[i].postback.substr(0,4) === 'http') ? {url: messageFromApiAi.buttons[i].postback} : {payload: messageFromApiAi.buttons[i].postback};
 				var type = (messageFromApiAi.buttons[i].postback.substr(0,4) === 'http') ? 'web_url' : 'postback';
 				messageToFb.attachment.payload.elements[0].buttons.push({
 					'type': type,
