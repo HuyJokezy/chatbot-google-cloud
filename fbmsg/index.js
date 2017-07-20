@@ -13,7 +13,6 @@ exports.handler = function (req, res) {
 		}
 	// Facebook Message receiver
 	} else if (req.method === 'POST') {
-		console.log('Start');
 		// Validate request
 		if (req.headers['x-hub-signature'] !== 'sha1=' + hash && false) {
 			console.log('Invalid authentication credentials');
@@ -24,7 +23,6 @@ exports.handler = function (req, res) {
 			console.log(JSON.stringify(req.body));
 			// Check if incoming message is echo
 			if (req.body.entry[0].messaging[0].message.is_echo !== true || req.body.entry[0].messaging[0].message.text === undefined) {
-				console.log('Normal Message: ' + req.body.entry[0].messaging[0].message.text);
 				// After timeout duration. Send a waiting message to user
 				var delayMessage = setTimeout(function () {
 					var request = require('request');
@@ -109,7 +107,6 @@ exports.handler = function (req, res) {
 		res.set('Allow', 'GET, POST, HEAD');
 		res.status(405).json({});
 	}
-	console.log('End');
 };
 
 function unicodeEscape (str) {
@@ -148,7 +145,7 @@ function sendTyping (recipientId) {
 		}
 	};
 	request(options, function () {
-		console.log('Send typing');
+		console.log(' ');
 	});
 }
 // Send responses to Facebook
