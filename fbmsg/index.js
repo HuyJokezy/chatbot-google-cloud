@@ -31,6 +31,7 @@ exports.handler = function (req, res) {
 				var query = datastore.createQuery('Page').filter('id', '=', req.body.entry[0].messaging[0].recipient.id);
 				datastore.runQuery(query).then((results) => {
 					token = results[0][0].token;
+					console.log(token);
 					// After timeout duration. Send a waiting message to user
 					var delayMessage = setTimeout(function () {
 						var request = require('request');
