@@ -54,7 +54,7 @@ exports.handler = function (req, res) {
 					}
 				};
 				request(options, function () {
-					console.log(' ');
+					res.status(200).json({});
 				});
 			}
 			// Check if incoming message is echo
