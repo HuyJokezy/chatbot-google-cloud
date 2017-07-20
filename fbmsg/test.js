@@ -26,3 +26,9 @@ console.log(hash1);
 // console.log(res);
 console.log(test('xin chào'));
 // console.log(text === 'à');
+
+var test2 = 'https://google.com';
+var tmp = (test2.substr(0,3) === 'http') ? {'url': test2} : {'payload': test2};
+var type = (test2.substr(0,3) === 'http') ? 'web_url' : 'postback';
+console.log(test2.substr(0,3));
+console.log(JSON.stringify(tmp) + ' ' + type);
