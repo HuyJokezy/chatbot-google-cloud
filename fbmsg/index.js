@@ -50,7 +50,7 @@ exports.handler = function (req, res) {
 					});
 				}, 8000);
 				// Send typing
-				sendTyping();
+				sendTyping(req.body.entry[0].messaging[0].sender.id);
 				// Make a request to API.AI
 				var request = require('request');
 				var options = {
@@ -130,7 +130,7 @@ function unicodeEscape (str) {
   });
 };
 //Send typing
-function sendTyping () {
+function sendTyping (recipientId) {
 	var request = require('request');
 	var token = 'EAAB3JUNaWzgBAJkbBLaCrGgVDoLUfHChBkf0qi8yE9Bg0azTRmMzcpbe2yojIPThR1BxT9HMwcwBlSl2ZBXDGJUS9mFFGedTxGRYKxq9n6ZCj9XqoGDvkr9sVrh3D6tqcjOMBhZC9y8Yxeaix3QTNTZA2r2hATWl8TJ0LCPpBgZDZD';
 	var options = {
@@ -142,7 +142,7 @@ function sendTyping () {
 		},
 		body: {
 			'recipient': {
-				'id': req.body.entry[0].messaging[0].sender.id
+				'id': recipientId
 			},
 			'sender_action': 'typing_on'
 		}
