@@ -28,6 +28,10 @@ exports.handler = function (req, res) {
 
 			// Check if incoming message is echo
 			if (req.body.entry[0].messaging[0].message.is_echo !== true) {
+				if (req.body.entry[0].messaging[0].message.text === undefined) {
+					res.status(200).json({});
+				} else {
+
 				console.log('Normal Message: ' + req.body.entry[0].messaging[0].message.text);
 				// After timeout duration. Send a waiting message to user
 				var delayMessage = setTimeout(function () {
@@ -99,6 +103,7 @@ exports.handler = function (req, res) {
 					}
 				};
 				request(options, callbackApiai);
+			}
 			} else {
 				console.log('Echo Message');
 				res.status(200).json({});
