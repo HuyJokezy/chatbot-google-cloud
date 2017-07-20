@@ -168,7 +168,6 @@ function respond (messageFromApiAi, recipientId, token, callbackRespond) {
 			break;
 		// Card
 		case 1:
-		console.log('Case 1');
 			messageToFb = {
 				'attachment': {
 					'type': 'template',
@@ -205,7 +204,6 @@ function respond (messageFromApiAi, recipientId, token, callbackRespond) {
 					});
 				}
 			}
-			console.log(JSON.stringify(messageToFb));
 			break;
 		// Quick replies
 		case 2:
