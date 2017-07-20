@@ -21,17 +21,9 @@ exports.handler = function (req, res) {
 			console.log(req.headers['x-hub-signature']);
 			res.status(200).send('Invalid authentication credentials');
 		} else {
-			console.log('Next');
-			console.log(req.body);
 			console.log(JSON.stringify(req.body));
-
-
 			// Check if incoming message is echo
-			if (req.body.entry[0].messaging[0].message.is_echo !== true) {
-				if (req.body.entry[0].messaging[0].message.text === undefined) {
-					res.status(200).json({});
-				} else {
-
+			if (req.body.entry[0].messaging[0].message.is_echo !== true || req.body.entry[0].messaging[0].message.text === undefined) {
 				console.log('Normal Message: ' + req.body.entry[0].messaging[0].message.text);
 				// After timeout duration. Send a waiting message to user
 				var delayMessage = setTimeout(function () {
@@ -103,7 +95,6 @@ exports.handler = function (req, res) {
 					}
 				};
 				request(options, callbackApiai);
-			}
 			} else {
 				console.log('Echo Message');
 				res.status(200).json({});
