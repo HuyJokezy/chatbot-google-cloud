@@ -20,8 +20,8 @@ exports.handler = function (req, res) {
 			console.log(req.headers['x-hub-signature']);
 			res.status(200).send('Invalid authentication credentials');
 		} else {
-			// console.log(JSON.stringify(req.body));
-			// res.status(200).json({});
+			console.log(JSON.stringify(req.body));
+			res.status(200).json({});
 			// Check if incoming message is echo
 			if (req.body.entry[0].messaging[0].message.is_echo !== true) {
 				console.log('Normal Message: ' + req.body.entry[0].messaging[0].message.text);
