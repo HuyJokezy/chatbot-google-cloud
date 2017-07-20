@@ -138,6 +138,7 @@ function respond (messageFromApiAi, recipientId, callbackRespond) {
 			break;
 		// Card
 		case 1:
+		console.log('Case 1');
 			messageToFb = {
 				'attachment': {
 					'type': 'template',
