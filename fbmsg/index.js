@@ -45,7 +45,7 @@ exports.handler = function (req, res) {
 									'buttons': [
 										{
 											'type': 'account_link',
-											'url': 'https://google.com'
+											'url': 'https://us-central1-chatbot-52601.cloudfunctions.net/login'
 										}
 									]
 								}
