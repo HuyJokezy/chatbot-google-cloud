@@ -28,7 +28,6 @@ exports.handler = function (req, res) {
 
 			// Check if incoming message is echo
 			if (req.body.entry[0].messaging[0].message.is_echo !== true) {
-				res.status(200).json({});
 				console.log('Normal Message: ' + req.body.entry[0].messaging[0].message.text);
 				// After timeout duration. Send a waiting message to user
 				var delayMessage = setTimeout(function () {
