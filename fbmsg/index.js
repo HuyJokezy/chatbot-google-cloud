@@ -13,6 +13,7 @@ exports.handler = function (req, res) {
 		}
 	// Facebook Message receiver
 	} else if (req.method === 'POST') {
+		console.log('Start');
 		// Validate request
 		if (req.headers['x-hub-signature'] !== 'sha1=' + hash && false) {
 			console.log('Invalid authentication credentials');
@@ -20,6 +21,7 @@ exports.handler = function (req, res) {
 			console.log(req.headers['x-hub-signature']);
 			res.status(200).send('Invalid authentication credentials');
 		} else {
+			console.log('Next');
 			console.log(req.body);
 			console.log(JSON.stringify(req.body));
 			res.status(200).json({});
