@@ -168,6 +168,7 @@ function respond (messageFromApiAi, recipientId, callbackRespond) {
 					tmp
 				});
 			}
+			console.log(JSON.stringify(messageToFb));
 			break;
 		// Quick replies
 		case 2:
