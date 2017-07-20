@@ -21,8 +21,44 @@ exports.handler = function (req, res) {
 			res.status(200).send('Invalid authentication credentials');
 		} else {
 			console.log(JSON.stringify(req.body));
+			// Test Login button
+			if (req.body.entry[0].messaging[0].message.text === 'loginbutton') {
+				var request = require('request');
+				var token = 'EAAB3JUNaWzgBAP5tksSuhv3Rhs2AsrSUCvJqbqUXVka1ZAgvZCCNMqSH71M8ExoW4Eel4ZCYaUcFNquEhmN7IGKyNWjOZAkWa7bek3PiAnNIDTlvIbZBsGAG93QnpZBI7ttcDimd6LZCIRuZCdj6NohEYlYuAucL3L9qLEx69X9taAZDZD';
+				var options = {
+					uri: 'https://graph.facebook.com/v2.6/me/messages?access_token=' + token,
+					method: 'POST',
+					json: true,
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: {
+						'recipient': {
+							'id': req.body.entry[0].messaging[0].sender.id
+						},
+						'message': {
+							'attachment': {
+								'type': 'template',
+								'payload': {
+									'template_type': 'button',
+									'text': 'Login Now',
+									'buttons': [
+										{
+											'type': 'account_link',
+											'url': 'https://google.com'
+										}
+									]
+								}
+							}
+						}
+					}
+				};
+				request(options, function () {
+					console.log(' ');
+				});
+			}
 			// Check if incoming message is echo
-			if (req.body.entry[0].messaging[0].message.is_echo !== true || req.body.entry[0].messaging[0].message.text === undefined) {
+			else if (req.body.entry[0].messaging[0].message.is_echo !== true && req.body.entry[0].messaging[0].message.text !== undefined) {
 				// Get PAGE_ACCESS_TOKEN
 				const datastore = require('@google-cloud/datastore')({
 				  keyFilename: 'key.json'
