@@ -49,7 +49,8 @@ exports.handler = function (req, res) {
 						res.status(200).json({});
 					});
 				}, 8000);
-
+				// Send typing
+				sendTyping();
 				// Make a request to API.AI
 				var request = require('request');
 				var options = {
@@ -128,7 +129,28 @@ function unicodeEscape (str) {
     }
   });
 };
-
+//Send typing
+function sendTyping () {
+	var request = require('request');
+	var token = 'EAAB3JUNaWzgBAJkbBLaCrGgVDoLUfHChBkf0qi8yE9Bg0azTRmMzcpbe2yojIPThR1BxT9HMwcwBlSl2ZBXDGJUS9mFFGedTxGRYKxq9n6ZCj9XqoGDvkr9sVrh3D6tqcjOMBhZC9y8Yxeaix3QTNTZA2r2hATWl8TJ0LCPpBgZDZD';
+	var options = {
+		uri: 'https://graph.facebook.com/v2.6/me/messages?access_token=' + token,
+		method: 'POST',
+		json: true,
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: {
+			'recipient': {
+				'id': req.body.entry[0].messaging[0].sender.id
+			},
+			'sender_action': 'typing_on'
+		}
+	};
+	request(options, function () {
+		console.log('Send typing');
+	});
+}
 // Send responses to Facebook
 function respond (messageFromApiAi, recipientId, callbackRespond) {
 	var messageToFb = {};
